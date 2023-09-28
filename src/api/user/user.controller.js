@@ -1,11 +1,12 @@
 const User = require('./user.model');
 const { createUser, listUsers, showUser, updateUser, deleteUser, } = require('./user.service')
+
 const createUserController = async (req,res) => {
     try {
-        const { email, userName } = req.body
         const newUser ={
-            email,
-            userName,
+            email: req.body.email,
+            userName: req.body.userName,
+            _id: req.body.id,
         }
         const user = await createUser(newUser)
         res.status(201).json({message: 'User created', data: user})
@@ -24,7 +25,10 @@ const listUsersController = async (req, res) => {
 const showUserController = async (req, res) => {
     try {
         const { id } = req.params
-        const user = await showUser(id)
+        const user = await User.findById(id).populate({
+            path: 'messages',
+            select: '-_id messageText emailMessage user createdAt updatedAt', // Excluye el campo "_id"
+          });
         res.status(200).json({message: 'showed user', data: user }) 
      } catch (error) {
          res.status(400).json({ message: 'show user could not listed', data: error.message})

@@ -11,7 +11,7 @@ const messageSchema = new Schema(
             required: [false, 'emailMessage is not required']
         },
         user:{
-            type: Schema.Types.ObjectId, 
+            type: Schema.Types.String, 
             ref: 'user',
             required: true
         }
