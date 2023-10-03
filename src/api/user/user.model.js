@@ -4,11 +4,11 @@ const userSchema = new Schema(
     {
         email:{
             type: String,
-            required: [true, 'title is required']
+            required: [true, 'userMail is required']
         },
         _id:{
             type: String,
-            required: [true, 'title is required']
+            required: [true, 'userId is required']
         },
         userName: String,
         messages: {

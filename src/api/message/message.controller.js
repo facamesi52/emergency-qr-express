@@ -43,10 +43,16 @@ const createMessageController = async (req, res) => {
 
     // Enviar un correo electrónico al usuario usando nodemailer
     const mailOptions = {
-      from: 'facamesi52@gmail.com',
+      from: process.env.MAIN_EMAIL,
       to: newMessage.email,
       subject: `mensaje nuevo enviado por ${newMessage.emailMessage}`,
-      html: `<p>Tu mensaje recibido fue ${newMessage.messageText}</p>`,
+      html: `
+      <p>Tu mensaje recibido fue: <b>${newMessage.messageText}</b></p>
+      <br />
+      <a href="https://nextjs-qr-app.vercel.app/dashboard">
+      <img src="https://res.cloudinary.com/drnclewqh/image/upload/v1696197049/hotelImages/jjeqkzedgtvikm68htps.png" alt="ImagenEmergencyQR">
+    </a>
+      `,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
